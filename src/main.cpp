@@ -4,9 +4,16 @@
 #include "sanitizer/sanitizer.h"
 
 int main(int argc, char* argv[]){
-
-    auto params = Sanitizer::sanitize(argc, argv);
     
+    Parameters params;
+
+    try {
+        params = Sanitizer::sanitize(argc, argv);
+    } catch (const std::exception& e) {
+        std::cerr << "Erro: " << e.what() << '\n';
+        return 1;
+    }
+
     CacheConfig config(params.nsets, params.bsize, params.assoc);
     FileReader reader(params.inputFile);
     auto cache = createCache(params.policy, config); 

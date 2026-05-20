@@ -18,5 +18,5 @@ struct Parameters {
  */
 class Sanitizer {
 public:
-    static Parameters sanitize(int argc, char** argv);
+    static Parameters sanitize(int argc, char* argv[]);
 };

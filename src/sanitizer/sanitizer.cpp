@@ -1,5 +1,5 @@
 #include "sanitizer.h"
 
-Parameters Sanitizer::sanitize(int argc, char **argv){
+Parameters Sanitizer::sanitize(int argc, char* argv[]){
   
 }
