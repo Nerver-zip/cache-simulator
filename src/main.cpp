@@ -3,6 +3,7 @@
 #include "decode/decoder.h"
 #include "factory/factory.h"
 #include "sanitizer/sanitizer.h"
+#include "reader/FileReader.h"
 
 int main(int argc, char* argv[]){
     
