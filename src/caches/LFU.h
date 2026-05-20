@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../ICache.h"
+#include "ICache.h"
 #include <list>
 #include <unordered_map>
 #include <vector>
@@ -12,16 +12,9 @@
  */
 class LFU : public ICache {
 public:
-    LFU(const std::vector<Instruction>& instructions, const CacheConfig& config);
+    LFU(const CacheConfig& config);
 
-    void run() override;
-    
-    long long getTotal() const override;
-
-    long long getHits() const override;
-
-    long long getMisses() const override;
-    
+    void execute(int index, int tag) override;
 private:
     struct CacheSet {
         const int capacity;

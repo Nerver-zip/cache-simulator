@@ -1,20 +1,14 @@
 #pragma once
 
-#include "../ICache.h"
+#include "ICache.h"
 #include <vector>
 
 class Random : public ICache {
 public:
-    Random(const std::vector<Instruction>& instructions, const CacheConfig& config);
+    Random(const CacheConfig& config);
 
-    void run() override;
+    void execute(int index, int tag) override;
     
-    long long getTotal() const override;
-
-    long long getHits() const override;
-
-    long long getMisses() const override;
-
 private:
     struct CacheSet {
         const int capacity;

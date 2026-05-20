@@ -1,15 +1,29 @@
 #include <iostream>
-#include "caches/LRU.h"
-#include "caches/FIFO.h"
-#include "caches/Random.h"
-#include "caches/LFU.h"
+#include "decode/decoder.h"
+#include "factory/factory.h"
+#include "sanitizer/sanitizer.h"
 
-int main(){
+int main(int argc, char* argv[]){
 
-    // 1. Lê arquivo
-    // 2. Faz a decodificação das instruções construindo um objeto vetor<Instruction>
-    // 3. Passa esse objeto para a cache selecionada via argumento de linha de comando  
-    // 4. "Executa" a cache
-    // 5. Avalia resultados finais
+    auto params = Sanitizer::sanitize(argc, argv);
     
+    CacheConfig config(params.nsets, params.bsize, params.assoc);
+    FileReader reader(params.inputFile);
+    auto cache = createCache(params.policy, config); 
+
+    std::string line;
+
+    while(reader.nextLine(line)){
+        auto [index, tag] = Decoder::getInstruction(line);        
+        cache->execute(index, tag);
+    }
+
+    std::cout << cache->getTotal();
+    std::cout << cache->getHitRate();
+    std::cout << cache->getMissRate();
+    std::cout << cache->getMisses().compulsory / cache->getMisses().total;
+    std::cout << cache->getMisses().capacity / cache->getMisses().total;
+    std::cout << cache->getMisses().conflict / cache->getMisses().total;
+    
+    return 0;
 }
