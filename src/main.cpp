@@ -1,3 +1,4 @@
+#include <cstdint>
 #include <iostream>
 #include "decode/decoder.h"
 #include "factory/factory.h"
@@ -13,15 +14,14 @@ int main(int argc, char* argv[]){
         std::cerr << "Erro: " << e.what() << '\n';
         return 1;
     }
-
+        
     CacheConfig config(params.nsets, params.bsize, params.assoc);
     FileReader reader(params.inputFile);
     auto cache = createCache(params.policy, config); 
 
-    std::string line;
-
-    while(reader.nextLine(line)){
-        auto [index, tag] = Decoder::getInstruction(line);        
+    uint32_t address;
+    while(reader.nextInt32(address)){
+        auto [index, tag] = Decoder::decodeAddress(address);  
         cache->execute(index, tag);
     }
 
