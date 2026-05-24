@@ -1,1 +1,11 @@
-.clangd
+# LSP e coisas de IDE
+.clangd 
+.vscode
+
+# Artefatos de compilação
+build/
+*.o
+*.d
+
+# Arquivos locais de desenvolvimento
+/dev
