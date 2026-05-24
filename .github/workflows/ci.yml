@@ -1,0 +1,46 @@
+name: C++ CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install build tools
+        run: |
+          sudo apt update
+          sudo apt install -y build-essential
+
+      # =========================
+      # Release build
+      # =========================
+
+      - name: Build release
+        run: make
+
+      # =========================
+      # Unit tests
+      # =========================
+
+      - name: Run unit tests
+        run: make test-unit
+
+      # =========================
+      # CI desabilitado por enquanto
+      # =========================
+
+      # - name: Run CI tests
+      #   run: make test-ci
+
+      # =========================
+      # Cleanup
+      # =========================
+
+      - name: Clean build artifacts
+        run: make clean

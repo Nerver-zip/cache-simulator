@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <iostream>
 #include <string>
+#include "../caches/ICache.h"
 
 /**
  * @class Decoder
@@ -10,11 +11,5 @@
  */
 class Decoder {
 public:
-    static std::pair<int,int> decodeAddress(uint32_t address){
-        int index, tag;
-    
-        // Lógica de decodificação
-
-        return {index, tag};
-    };
+    static std::pair<int,int> decodeAddress(uint32_t address, const CacheConfig& config);
 };

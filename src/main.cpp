@@ -22,15 +22,15 @@ int main(int argc, char* argv[]){
 
     uint32_t address;
     while(reader.nextInt32(address)){
-        auto [index, tag] = Decoder::decodeAddress(address);  
+        auto [index, tag] = Decoder::decodeAddress(address, config);  
         cache->execute(index, tag);
     }
 
-    std::cout << cache->getTotal();
-    std::cout << cache->getHitRate();
-    std::cout << cache->getMissRate();
-    std::cout << cache->getMisses().compulsory / cache->getMisses().total;
-    std::cout << cache->getMisses().capacity / cache->getMisses().total;
+    std::cout << cache->getTotal() << " ";
+    std::cout << cache->getHitRate() << " ";
+    std::cout << cache->getMissRate() << " ";
+    std::cout << cache->getMisses().compulsory / cache->getMisses().total << " ";
+    std::cout << cache->getMisses().capacity / cache->getMisses().total << " ";
     std::cout << cache->getMisses().conflict / cache->getMisses().total;
     
     return 0;

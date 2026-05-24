@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../decode/decoder.h"
 #include <vector>
 #include <string>
 
@@ -45,9 +44,9 @@ public:
 };
 
 struct CacheConfig {
-    const int nsets;
-    int bsize;
+    int nsets;
     int assoc;
+    int bsize;
 
-    CacheConfig(int nsets, int bsize, int assoc) : nsets(nsets), bsize(bsize), assoc(assoc) {}  
+    constexpr CacheConfig(int nsets, int assoc, int bsize) : nsets(nsets), assoc(assoc), bsize(bsize) {}  
 };
