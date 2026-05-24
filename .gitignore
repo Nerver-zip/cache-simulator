@@ -7,5 +7,9 @@ build/
 *.o
 *.d
 
+# Executáveis
+cache_simulator*
+unit_tests*
+
 # Arquivos locais de desenvolvimento
 /dev

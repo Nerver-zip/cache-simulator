@@ -21,14 +21,21 @@ TEST_FLAGS = \
 	-fsanitize=address \
 	-fsanitize=undefined
 
-CXXFLAGS = $(STD) $(WARNINGS)
+COMMON_FLAGS = $(STD) $(WARNINGS)
 
 LDFLAGS =
 
 TARGET = cache_simulator
 TEST_TARGET = unit_tests
 
+# =========================
+# Build directories
+# =========================
+
 BUILD_DIR = build
+
+RELEASE_DIR = $(BUILD_DIR)/release
+TEST_DIR = $(BUILD_DIR)/test
 
 # =========================
 # Sources
@@ -45,13 +52,20 @@ TEST_SRC := tests/unit/unit_tests.cpp
 # Objects
 # =========================
 
-OBJ := $(patsubst src/%.cpp,$(BUILD_DIR)/%.o,$(SRC))
+RELEASE_OBJ := \
+	$(patsubst src/%.cpp,$(RELEASE_DIR)/%.o,$(SRC))
 
 TEST_OBJ := \
-	$(patsubst src/%.cpp,$(BUILD_DIR)/%.o,$(SRC_NO_MAIN)) \
-	$(BUILD_DIR)/unit_tests.o
+	$(patsubst src/%.cpp,$(TEST_DIR)/%.o,$(SRC_NO_MAIN)) \
+	$(TEST_DIR)/unit_tests.o
 
-DEP := $(OBJ:.o=.d)
+# =========================
+# Dependencies
+# =========================
+
+DEP := \
+	$(RELEASE_OBJ:.o=.d) \
+	$(TEST_OBJ:.o=.d)
 
 # =========================
 # Main Targets
@@ -59,7 +73,6 @@ DEP := $(OBJ:.o=.d)
 
 all: release
 
-release: CXXFLAGS += $(RELEASE_FLAGS)
 release: $(TARGET)
 
 # =========================
@@ -68,13 +81,9 @@ release: $(TARGET)
 
 test: test-unit test-ci
 
-test-unit: CXXFLAGS += $(TEST_FLAGS) $(STRICT_WARNINGS)
-test-unit: LDFLAGS += $(TEST_FLAGS)
 test-unit: $(TEST_TARGET)
 	./$(TEST_TARGET)
 
-test-ci: CXXFLAGS += $(TEST_FLAGS) $(STRICT_WARNINGS)
-test-ci: LDFLAGS += $(TEST_FLAGS)
 test-ci: $(TARGET)
 	bash tests/run_tests.sh
 
@@ -82,27 +91,57 @@ test-ci: $(TARGET)
 # Main binary
 # =========================
 
-$(TARGET): $(OBJ)
-	$(CXX) $(OBJ) $(LDFLAGS) -o $(TARGET)
+$(TARGET): $(RELEASE_OBJ)
+	@echo "[LINK] $@"
+	@$(CXX) $(RELEASE_OBJ) $(LDFLAGS) -o $@
 
 # =========================
 # Unit tests binary
 # =========================
 
 $(TEST_TARGET): $(TEST_OBJ)
-	$(CXX) $(TEST_OBJ) $(LDFLAGS) -o $(TEST_TARGET)
+	@echo "[LINK] $@"
+	@$(CXX) $(TEST_OBJ) $(LDFLAGS) $(TEST_FLAGS) -o $@
 
 # =========================
-# Compilation Rules
+# Release compilation
 # =========================
 
-$(BUILD_DIR)/%.o: src/%.cpp
+$(RELEASE_DIR)/%.o: src/%.cpp
 	@mkdir -p $(dir $@)
-	$(CXX) $(CXXFLAGS) -MMD -MP -c $< -o $@
+	@echo "[CXX][RELEASE] $<"
+	@$(CXX) \
+		$(COMMON_FLAGS) \
+		$(RELEASE_FLAGS) \
+		-MMD -MP \
+		-c $< \
+		-o $@
 
-$(BUILD_DIR)/unit_tests.o: tests/unit/unit_tests.cpp
+# =========================
+# Test compilation
+# =========================
+
+$(TEST_DIR)/%.o: src/%.cpp
 	@mkdir -p $(dir $@)
-	$(CXX) $(CXXFLAGS) -MMD -MP -c $< -o $@
+	@echo "[CXX][TEST] $<"
+	@$(CXX) \
+		$(COMMON_FLAGS) \
+		$(STRICT_WARNINGS) \
+		$(TEST_FLAGS) \
+		-MMD -MP \
+		-c $< \
+		-o $@
+
+$(TEST_DIR)/unit_tests.o: tests/unit/unit_tests.cpp
+	@mkdir -p $(dir $@)
+	@echo "[CXX][TEST] $<"
+	@$(CXX) \
+		$(COMMON_FLAGS) \
+		$(STRICT_WARNINGS) \
+		$(TEST_FLAGS) \
+		-MMD -MP \
+		-c $< \
+		-o $@
 
 # =========================
 # Cleanup
@@ -110,5 +149,9 @@ $(BUILD_DIR)/unit_tests.o: tests/unit/unit_tests.cpp
 
 clean:
 	rm -rf $(BUILD_DIR) $(TARGET) $(TEST_TARGET)
+
+# =========================
+# Auto dependencies
+# =========================
 
 -include $(DEP)
