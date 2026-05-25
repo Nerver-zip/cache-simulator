@@ -7,7 +7,7 @@
 
 /**
  * @class LFUCache
- * @brief A LFU Cache significa Least Frequently Used. Significa que quando faltar capacidade
+ * @brief LFU Cache - Least Frequently Used. Quando faltar capacidade
  * ela ejetará o elemento de menor frequência. Em caso de empate, a política de fallback é o LRU.
  */
 class LFU : public ICache {

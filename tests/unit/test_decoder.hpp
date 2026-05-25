@@ -6,13 +6,13 @@
 #include "../../src/caches/ICache.h"
 #include "test_framework.h"
 
-struct TestCase {
-    uint32_t address;
-    CacheConfig config;
-    std::pair<int, int> expected;
-};
-
 inline void test_decoder() {
+    struct TestCase {
+        uint32_t address;
+        CacheConfig config;
+        std::pair<int, int> expected;
+    };
+
     // Endereço, configuração da cache, valores esperados de índice e tag
     constexpr std::array<TestCase, 20> testcases = {{
         {0x11110001, {1,    2,    1},    {0,    286326785}},
@@ -39,9 +39,16 @@ inline void test_decoder() {
 
     for (int i = 1; const auto& tc : testcases) {
         std::cout << "Case #" << i++ << "\n";
-        ASSERT_EQUAL(
+        
+        const auto decoded = Decoder::decodeAddress(tc.address, tc.config); 
+        
+        ASSERT_EQUAL_VERBOSE(
             tc.expected,
-            Decoder::decodeAddress(tc.address, tc.config)
+            decoded,
+            tc.expected,
+            decoded,
+            tc.address,
+            tc.config
         );
     }
 }

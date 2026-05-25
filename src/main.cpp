@@ -12,7 +12,7 @@ int main(int argc, char* argv[]){
     try {
         params = Sanitizer::sanitize(argc, argv);
     } catch (const std::exception& e) {
-        std::cerr << "Erro: " << e.what() << '\n';
+        std::cerr << "Exception thrown by sanitizer: " << e.what() << '\n';
         return 1;
     }
         
@@ -25,13 +25,18 @@ int main(int argc, char* argv[]){
         auto [index, tag] = Decoder::decodeAddress(address, config);  
         cache->execute(index, tag);
     }
-
-    std::cout << cache->getTotal() << " ";
-    std::cout << cache->getHitRate() << " ";
-    std::cout << cache->getMissRate() << " ";
-    std::cout << cache->getMisses().compulsory / cache->getMisses().total << " ";
-    std::cout << cache->getMisses().capacity / cache->getMisses().total << " ";
-    std::cout << cache->getMisses().conflict / cache->getMisses().total;
+    
+    if(params.outputFlag){
+        std::cout << cache->getTotal() << " ";
+        std::cout << cache->getHitRate() << " ";
+        std::cout << cache->getMissRate() << " ";
+        std::cout << cache->getMisses().compulsory / cache->getMisses().total << " ";
+        std::cout << cache->getMisses().capacity / cache->getMisses().total << " ";
+        std::cout << cache->getMisses().conflict / cache->getMisses().total;
+    }
+    else {
+        // Formato livre
+    }
     
     return 0;
 }
