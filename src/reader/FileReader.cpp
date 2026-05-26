@@ -4,7 +4,9 @@ FileReader::FileReader(const std::string& filename) {
     file.open(filename, std::ios::binary);
 
     if (!file.is_open()) {
-        throw std::runtime_error("Error: Could not open file");
+        throw std::runtime_error(
+            "Error: Could not open file: " + filename
+        );
     }
 }
 
