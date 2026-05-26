@@ -15,7 +15,8 @@ for file in "$TEST_DIR"/*.args; do
     echo "Running CI test: $name"
 
     args=$(cat "$file")
-
+    echo "ARGS=[$args]"
+    
     OUTPUT_FILE="$OUTPUT_DIR/${name}.out"
 
     "$ROOT_DIR/cache_simulator" $args > "$OUTPUT_FILE"
