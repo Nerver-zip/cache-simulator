@@ -4,6 +4,6 @@ LFU::LFU(const CacheConfig& config){
 
 }
 
-void LFU::execute(int index, int tag){
-
+bool LFU::execute(int index, int tag){
+    return false;
 }

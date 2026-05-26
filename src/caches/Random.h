@@ -7,7 +7,7 @@ class Random : public ICache {
 public:
     Random(const CacheConfig& config);
 
-    void execute(int index, int tag) override;
+    bool execute(int index, int tag) override;
     
 private:
     struct CacheSet {
