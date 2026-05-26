@@ -4,6 +4,6 @@ Random::Random(const CacheConfig& config){
 
 }
 
-void Random::execute(int index, int tag){
-
+bool Random::execute(int index, int tag){
+    return false;
 }

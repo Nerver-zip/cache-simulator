@@ -14,7 +14,7 @@ class LFU : public ICache {
 public:
     LFU(const CacheConfig& config);
 
-    void execute(int index, int tag) override;
+    bool execute(int index, int tag) override;
 private:
     struct CacheSet {
         const int capacity;

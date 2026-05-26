@@ -38,7 +38,7 @@ public:
         return 1 - getHitRate();
     }
     
-    virtual void execute(int index, int tag) = 0;
+    virtual bool execute(int index, int tag) = 0;
     
     virtual ~ICache() = default;
 };
