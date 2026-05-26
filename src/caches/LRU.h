@@ -12,11 +12,11 @@ public:
 
     bool execute(int index, int tag) override;
 private:
+    const int capacity;
+
     struct CacheSet {
-        const int capacity;
         std::list<int> linkedList;
         std::unordered_map<int, std::list<int>::iterator> map;
-        CacheSet(int capacity) : capacity(capacity) {}
     };
     
     std::vector<CacheSet> set;

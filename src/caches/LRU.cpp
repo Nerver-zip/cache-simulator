@@ -1,11 +1,11 @@
 #include "LRU.h"
 
-LRU::LRU(const CacheConfig& config) : cacheFA(config) {
-    set.resize(config.nsets, CacheSet(config.assoc));
+LRU::LRU(const CacheConfig& config) : capacity(config.assoc), cacheFA(config) {
+    set.resize(config.nsets);
 }
 
 bool LRU::execute(int index, int tag){
-    auto& [capacity, linkedList, map] = set[index];
+    auto& [linkedList, map] = set[index];
     auto it = map.find(tag);
         
     bool capacity_miss = cacheFA.isMissFullyAssociative(tag);
