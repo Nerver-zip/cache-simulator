@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ICache.h"
-#include "CacheFA.h"
 #include <list>
 #include <unordered_map>
 #include <vector>
@@ -12,7 +11,9 @@ public:
 
     bool execute(int index, int tag) override;
 private:
-    const int capacity;
+    const int set_capacity;
+    const int total_capacity;
+    int used_capacity;
 
     struct CacheSet {
         std::list<int> linkedList;
@@ -20,5 +21,4 @@ private:
     };
     
     std::vector<CacheSet> set;
-    CacheFA cacheFA;
 };

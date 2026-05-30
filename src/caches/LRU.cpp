@@ -1,39 +1,39 @@
 #include "LRU.h"
 
-LRU::LRU(const CacheConfig& config) : capacity(config.assoc), cacheFA(config) {
-    set.resize(config.nsets);
-}
+LRU::LRU(const CacheConfig& config) : set_capacity(config.assoc), total_capacity(config.nsets * config.assoc), used_capacity(0), set(set_capacity) {}
 
 bool LRU::execute(int index, int tag){
     auto& [linkedList, map] = set[index];
     auto it = map.find(tag);
         
-    bool capacity_miss = cacheFA.isMissFullyAssociative(tag);
-
     // tag não existe
     if(it == map.end()){
         ++misses.total; 
 
-        if((int)linkedList.size() == capacity){
+        if((int)linkedList.size() == set_capacity){
             map.erase(linkedList.back());
             linkedList.pop_back();
             
-            if(capacity_miss)
+            if(used_capacity == total_capacity)
                 ++misses.capacity;
             else
                 ++misses.conflict;
         }
-        else
+        else{
             ++misses.compulsory;
+            ++used_capacity;
+        }
 
         linkedList.push_front(tag);
         map.insert({tag, linkedList.begin()});
         return false;
     }
-
+    
     // tag existe
     auto list_it = it->second;
     linkedList.splice(linkedList.begin(), linkedList, list_it);
     ++hits;
+
+
     return true;
 }
