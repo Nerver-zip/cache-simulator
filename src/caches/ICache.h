@@ -5,7 +5,6 @@
 
 class ICache {
 protected:
-    long long total;
     long long hits;
     
     struct Miss {
@@ -13,13 +12,16 @@ protected:
         long long compulsory;
         long long conflict;
         long long capacity;
+        Miss() : total(0), compulsory(0), conflict(0), capacity(0) {}
     };
 
     Miss misses;
 
 public:
-    long long getTotal() {
-        return total;
+    ICache() : hits(0), misses() {}
+
+    long long getTotal() const {
+        return hits + misses.total;
     }
 
     long long getHits() const {
@@ -31,13 +33,25 @@ public:
     }
 
     double getHitRate() const {
-        return total == 0 ? 0.0 : static_cast<double>(hits) / total;
+        return getTotal() == 0 ? 0.0 : static_cast<double>(hits) / getTotal();
     }
 
     double getMissRate() const {
-        return 1 - getHitRate();
+        return 1.0 - getHitRate();
+    }
+
+    double getCompulsoryMissRate() const {
+        return static_cast<double>(misses.compulsory) / misses.total;
+    }
+
+    double getConflictMissRate() const {
+        return static_cast<double>(misses.conflict) / misses.total;
     }
     
+    double getCapacityMissRate() const {
+        return static_cast<double>(misses.capacity) / misses.total;
+    }
+
     virtual bool execute(int index, int tag) = 0;
     
     virtual ~ICache() = default;

@@ -4,6 +4,9 @@
 #include <cstdlib>
 #include <utility>
 #include "../../src/caches/ICache.h"
+#include <chrono>
+
+inline auto test_start_time = std::chrono::steady_clock::now();
 
 // ======================================================
 // Counters
@@ -429,9 +432,15 @@ inline void print_args(const Args&... args)
 // ======================================================
 
 #define TEST_SUMMARY() do { \
+    auto _end = std::chrono::steady_clock::now(); \
+    auto _elapsed = std::chrono::duration_cast<std::chrono::milliseconds>( \
+        _end - test_start_time \
+    ); \
+    \
     std::cout << COLOR_YELLOW \
         << "\n========== TEST SUMMARY ==========\n" \
         << COLOR_RESET \
         << passed << "/" << tests << " tests passed\n" \
-        << asserts_passed << "/" << asserts << " assertions passed\n"; \
+        << asserts_passed << "/" << asserts << " assertions passed\n" \
+        << "time: " << _elapsed.count() << " ms\n"; \
 } while (0)

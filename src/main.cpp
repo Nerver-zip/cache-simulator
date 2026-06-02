@@ -12,7 +12,6 @@ int main(int argc, char* argv[]){
     try {
         params = Sanitizer::sanitize(argc, argv);
     } catch (const std::exception& e) {
-        std::cerr << "Exception thrown by sanitizer: " << e.what() << '\n';
         return 1;
     }
         
