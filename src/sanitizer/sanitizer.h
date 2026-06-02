@@ -7,8 +7,13 @@ struct Parameters {
     int bsize;
     int assoc;
     std::string policy;
-    int outputFlag;
+    bool outputFlag;
     std::string inputFile;
+    
+    Parameters() = default;
+
+    Parameters(int nsets, int bsize, int assoc, std::string policy, bool outputFlag, std::string inputFile) : 
+    nsets(nsets), bsize(bsize), assoc(assoc), policy(policy), outputFlag(outputFlag), inputFile(inputFile) {}
 };
 
 /**

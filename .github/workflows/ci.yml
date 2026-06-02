@@ -32,11 +32,11 @@ jobs:
         run: make test-unit
 
       # =========================
-      # CI desabilitado por enquanto
+      # CI 
       # =========================
 
-      # - name: Run CI tests
-      #   run: make test-ci
+      - name: Run CI tests
+        run: make test-ci
 
       # =========================
       # Cleanup

@@ -11,5 +11,5 @@
  */
 class Decoder {
 public:
-    static std::pair<int,int> decodeAddress(uint32_t address, const CacheConfig& config);
+    static std::pair<uint32_t, uint32_t> decodeAddress(uint32_t address, const CacheConfig& config);
 };

@@ -1,9 +1,8 @@
 #include "decoder.h"
 #include <cmath>
 
-
-std::pair<int,int> Decoder::decodeAddress(uint32_t address, const CacheConfig& config){
-    const auto [nsets, assoc, bsize] = config;
+std::pair<uint32_t, uint32_t> Decoder::decodeAddress(uint32_t address, const CacheConfig& config){
+    const auto [nsets, bsize, assoc] = config;
     
     // Formato do endereço:
     //[ [tag][índice][offset] ]
@@ -11,8 +10,8 @@ std::pair<int,int> Decoder::decodeAddress(uint32_t address, const CacheConfig& c
     int bits_offset = log2(bsize);
     int bits_index = log2(nsets);
 
-    int tag = address >> (bits_index + bits_offset);
-    int index = (address >> bits_offset) & ((1 << bits_index) - 1);
+    uint32_t tag = address >> (bits_index + bits_offset);
+    uint32_t index = (address >> bits_offset) & ((1 << bits_index) - 1);
 
     return {index, tag};
 }

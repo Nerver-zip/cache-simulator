@@ -10,8 +10,8 @@ inline void test_lru(){
     // Tamanho do bloco não importa aqui
     // Definimos uma cache de 2 conjuntos de 4 vias cada
     {
-        CacheConfig config(2, 4, 8);
-        auto cache = createCache("LRU", config);
+        CacheConfig config(2, 8, 4);
+        auto cache = createCache("L", config);
 
         // Teste de hit/miss
         // Dados: 2,4,6,8,2,10,4
@@ -33,8 +33,8 @@ inline void test_lru(){
     
     // Simulando lista = [1,3,5,7,1,1,9,2,4,6,8,10,12,21]
     {
-        CacheConfig config(2, 4, 8);
-        auto cache = createCache("LRU", config);
+        CacheConfig config(2, 8, 4);
+        auto cache = createCache("L", config);
         
         ASSERT_EQUAL(MISS, cache->execute(1, 1)); // falta
         ASSERT_EQUAL(MISS, cache->execute(1, 3)); // falta
@@ -66,8 +66,8 @@ inline void test_lru(){
     // Testando o LRU
     // Lista = [0,2,4,8,8,0,2,10] -> Deve sair o 4 quando 10 chegar
     {
-        CacheConfig config(1, 4, 8);
-        auto cache = createCache("LRU", config);
+        CacheConfig config(1, 8, 4);
+        auto cache = createCache("L", config);
         
         cache->execute(0, 0);
         cache->execute(0, 2);
@@ -82,14 +82,14 @@ inline void test_lru(){
         ASSERT_EQUAL(MISS, cache->execute(0, 4));
 
 
-        std::cout << "----------------------------------" << "\n"; 
+        std::cout << "------------- ---------------------" << "\n"; 
     }
 
     // Testando o LRU
     // Lista = [0,2,4,8,8,0,8,4,2,10] -> Deve sair o 0 quando 10 chegar
     {
-        CacheConfig config(1, 4, 8);
-        auto cache = createCache("LRU", config);
+        CacheConfig config(1, 8, 4);
+        auto cache = createCache("L", config);
         
         cache->execute(0, 0);
         cache->execute(0, 2);
@@ -111,8 +111,8 @@ inline void test_lru(){
     // Testando o LRU
     // Lista = [0,2,4,8,8,0,8,2,4,8,0,10] -> Deve sair o 2 quando 10 chegar
     {
-        CacheConfig config(1, 4, 8);
-        auto cache = createCache("LRU", config);
+        CacheConfig config(1, 8, 4);
+        auto cache = createCache("L", config);
         
         cache->execute(0, 0);
         cache->execute(0, 2);

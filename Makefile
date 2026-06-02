@@ -11,7 +11,7 @@ WARNINGS = \
 
 STRICT_WARNINGS = -Werror
 
-STD = -std=c++20
+STD = -std=c++23
 
 RELEASE_FLAGS = -O3
 
