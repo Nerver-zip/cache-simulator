@@ -10,7 +10,7 @@ inline void test_decoder() {
     struct TestCase {
         uint32_t address;
         CacheConfig config;
-        std::pair<int, int> expected;
+        std::pair<uint32_t, uint32_t> expected;
     };
 
     // Endereço, configuração da cache, valores esperados de índice e tag
