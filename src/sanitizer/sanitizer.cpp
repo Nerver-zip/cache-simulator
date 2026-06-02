@@ -5,6 +5,7 @@
 #include <string_view>
 #include <charconv>
 #include <vector>
+#include <limits>
 
 Parameters Sanitizer::sanitize(int argc, const char* const argv[]){
     const int MAX_SIZE = 1 << 30;
