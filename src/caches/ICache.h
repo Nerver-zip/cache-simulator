@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>
 #include <vector>
 #include <string>
 
@@ -41,26 +42,29 @@ public:
     }
 
     double getCompulsoryMissRate() const {
-        return static_cast<double>(misses.compulsory) / misses.total;
+        return misses.total == 0 ? 0.0 : 
+            static_cast<double>(misses.compulsory) / misses.total;
     }
 
     double getConflictMissRate() const {
-        return static_cast<double>(misses.conflict) / misses.total;
+        return misses.total == 0 ? 0.0 : 
+            static_cast<double>(misses.conflict) / misses.total;
     }
     
     double getCapacityMissRate() const {
-        return static_cast<double>(misses.capacity) / misses.total;
+        return misses.total == 0 ? 0.0 : 
+            static_cast<double>(misses.capacity) / misses.total;
     }
 
-    virtual bool execute(int index, int tag) = 0;
+    virtual bool execute(uint32_t index, uint32_t t) = 0;
     
     virtual ~ICache() = default;
 };
 
 struct CacheConfig {
     int nsets;
-    int assoc;
     int bsize;
-
-    constexpr CacheConfig(int nsets, int assoc, int bsize) : nsets(nsets), assoc(assoc), bsize(bsize) {}  
+    int assoc;
+    
+    constexpr CacheConfig(int nsets, int bsize, int assoc) : nsets(nsets), bsize(bsize), assoc(assoc) {}  
 };

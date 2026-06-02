@@ -2,13 +2,13 @@
 
 std::unique_ptr<ICache>
 createCache(const std::string& policy, const CacheConfig& config){
-    if(policy == "LRU")
+    if(policy == "L")
         return std::make_unique<LRU>(config);
 
-    if(policy == "FIFO")
+    if(policy == "F")
         return std::make_unique<FIFO>(config);
 
-    if(policy == "Random")
+    if(policy == "R")
         return std::make_unique<Random>(config);
     
     if(policy == "LFU")

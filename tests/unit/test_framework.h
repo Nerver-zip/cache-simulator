@@ -298,8 +298,17 @@ inline void print_args(const Args&... args)
 #define ASSERT_ANY_THROW(expr, ...) do { \
     asserts++; \
     bool _thrown = false; \
+    std::string _msg; \
     \
-    try { (expr); } catch (...) { _thrown = true; } \
+    try { \
+        (expr); \
+    } catch (const std::exception& e) { \
+        _thrown = true; \
+        _msg = e.what(); \
+    } catch (...) { \
+        _thrown = true; \
+        _msg = "<non-std exception>"; \
+    } \
     \
     if (!_thrown) { \
         PRINT_FAIL("expected exception in: " #expr); \
@@ -310,6 +319,7 @@ inline void print_args(const Args&... args)
     \
     asserts_passed++; \
     PRINT_PASS("threw exception in " #expr); \
+    std::cout << "  message: " << _msg << "\n"; \
 } while (0)
 
 // ---------------- VERBOSE ----------------
@@ -318,15 +328,29 @@ inline void print_args(const Args&... args)
     asserts++; \
     PRINT_INFO("ASSERT_ANY_THROW " #expr); \
     print_args(__VA_ARGS__); \
+    \
     bool _thrown = false; \
-    try { (expr); } catch (...) { _thrown = true; } \
+    std::string _msg; \
+    \
+    try { \
+        (expr); \
+    } catch (const std::exception& e) { \
+        _thrown = true; \
+        _msg = e.what(); \
+    } catch (...) { \
+        _thrown = true; \
+        _msg = "<non-std exception>"; \
+    } \
+    \
     if (!_thrown) { \
         PRINT_FAIL("expected exception in: " #expr); \
         std::cerr << "  location: " << __FILE__ << ":" << __LINE__ << "\n"; \
         std::exit(1); \
     } \
+    \
     asserts_passed++; \
     PRINT_PASS("threw exception in " #expr); \
+    std::cout << "  message: " << _msg << "\n"; \
 } while (0)
 
 // ---------------- SILENT ---------------- 

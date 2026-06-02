@@ -11,13 +11,13 @@ make
 Executando:
 
 ```bash
-./cache_simulator <nsets> <assoc> <bsize> <policy> <flag> <file>
+./cache_simulator <nsets> <bsize> <assoc> <policy> <flag> <file>
 ```
 
 Exemplo:
 
 ```bash
-./cache_simulator 32 4 32 L 1 bin_1000.bin
+./cache_simulator 32 32 4 L 1 bin_1000.bin
 ```
 
 Rodando todos os testes:
@@ -32,9 +32,7 @@ Somente testes unitários:
 make test-unit
 ```
 
-
 Somente testes de integração
 
 ```makefile
 make test-ci
-```

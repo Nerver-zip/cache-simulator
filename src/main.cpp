@@ -1,4 +1,6 @@
 #include <cstdint>
+#include <iomanip>
+#include <ios>
 #include <iostream>
 #include "decode/decoder.h"
 #include "factory/factory.h"
@@ -12,6 +14,7 @@ int main(int argc, char* argv[]){
     try {
         params = Sanitizer::sanitize(argc, argv);
     } catch (const std::exception& e) {
+        std::cout << e.what() << "\n";
         return 1;
     }
         
@@ -27,11 +30,11 @@ int main(int argc, char* argv[]){
     
     if(params.outputFlag){
         std::cout << cache->getTotal() << " ";
-        std::cout << cache->getHitRate() << " ";
-        std::cout << cache->getMissRate() << " ";
-        std::cout << cache->getMisses().compulsory / cache->getMisses().total << " ";
-        std::cout << cache->getMisses().capacity / cache->getMisses().total << " ";
-        std::cout << cache->getMisses().conflict / cache->getMisses().total;
+        std::cout << std::fixed << std::setprecision(4) << cache->getHitRate() << " ";
+        std::cout << std::fixed << std::setprecision(4) <<cache->getMissRate() << " ";
+        std::cout << std::fixed << std::setprecision(4) << cache->getCompulsoryMissRate() << " ";
+        std::cout << std::fixed << std::setprecision(4) << cache->getCapacityMissRate()<< " ";
+        std::cout << std::fixed << std::setprecision(4) << cache->getConflictMissRate() << "\n";
     }
     else {
         // Formato livre
