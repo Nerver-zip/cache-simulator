@@ -8,11 +8,11 @@ Random::Random(const CacheConfig &config) :
     used_capacity(), dist(0, config.assoc - 1) {}
 
 bool Random::execute(uint32_t index, uint32_t tag){
-    auto &row = matrix[index];
+    auto& row = matrix[index];
 
-    for (int i = 0; i < (int)row.size(); i++)
+    for (uint32_t t : row)
     {
-        if(row[i] == tag){
+        if(t == tag){
             ++hits;
             return true;
         }

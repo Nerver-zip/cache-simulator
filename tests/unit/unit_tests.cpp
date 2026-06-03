@@ -3,12 +3,14 @@
 #include "test_sanitizer.hpp"
 #include "test_filereader.hpp"
 #include "test_lru.hpp"
+#include "test_r.hpp"
 
 int main() {
     RUN_TEST(test_decoder);
     RUN_TEST(test_sanitizer);
     RUN_TEST(test_filereader);
     RUN_TEST(test_lru);
+    RUN_TEST(test_r);
 
     TEST_SUMMARY(); 
 }
