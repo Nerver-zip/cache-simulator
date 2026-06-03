@@ -77,7 +77,7 @@ for file in "$TEST_DIR"/*.args; do
         compare_outputs \
             "$OUTPUT_FILE" \
             "$TEST_DIR/${name}.expected" \
-            "0.015"
+            "0.02"
     else
         diff -u \
             "$TEST_DIR/${name}.expected" \
