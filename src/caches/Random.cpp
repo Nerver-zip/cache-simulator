@@ -1,11 +1,11 @@
 #include "Random.h"
 
-#include "Random.h"
-
-Random::Random(const CacheConfig &config) : 
-    gen(std::random_device{}()), matrix(config.nsets), 
+Random::Random(const CacheConfig& config) : 
+    gen(42), matrix(config.nsets), 
     capacity(config.assoc), total_capacity(config.nsets * config.assoc), 
-    used_capacity(), dist(0, config.assoc - 1) {}
+    used_capacity(), dist(0, config.assoc - 1) {
+        policy = "Random";
+    }
 
 bool Random::execute(uint32_t index, uint32_t tag){
     auto& row = matrix[index];

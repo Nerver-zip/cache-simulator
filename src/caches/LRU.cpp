@@ -1,7 +1,11 @@
 #include "LRU.h"
 #include <cstdint>
 
-LRU::LRU(const CacheConfig& config) : set_capacity(config.assoc), total_capacity(config.nsets * config.assoc), used_capacity(0), set(config.nsets) {}
+LRU::LRU(const CacheConfig& config) : 
+    set_capacity(config.assoc), total_capacity(config.nsets * config.assoc), 
+    used_capacity(0), set(config.nsets) {
+        policy = "LRU - Least Recently Used";
+    }
 
 bool LRU::execute(uint32_t index, uint32_t tag){
     auto& [linkedList, map] = set[index];

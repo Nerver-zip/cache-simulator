@@ -3,10 +3,10 @@
 #include "test_framework.h"
 #include "../../src/factory/factory.h"
 
-inline void test_r()
-{
-#define MISS false
-#define HIT true
+inline void test_random() {
+    #define MISS false
+    #define HIT true
+    
     {
         CacheConfig config(2, 8, 4);
         auto cache = createCache("R", config);

@@ -7,6 +7,7 @@
 class ICache {
 protected:
     long long hits;
+    std::string policy;
     
     struct Miss {
         long long total;
@@ -17,9 +18,8 @@ protected:
     };
 
     Miss misses;
-
 public:
-    ICache() : hits(0), misses() {}
+    ICache() : hits(), misses() {}
 
     long long getTotal() const {
         return hits + misses.total;
@@ -54,6 +54,10 @@ public:
     double getCapacityMissRate() const {
         return misses.total == 0 ? 0.0 : 
             static_cast<double>(misses.capacity) / misses.total;
+    }
+    
+    std::string getPolicy() const {
+        return policy;
     }
 
     virtual bool execute(uint32_t index, uint32_t t) = 0;

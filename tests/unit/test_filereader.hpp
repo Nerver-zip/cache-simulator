@@ -10,9 +10,7 @@
 #include "test_framework.h"
 
 inline void test_filereader(){
-    const std::string bin_path = "bin_100.bin";
-    const std::string txt_path = "bin_100.txt";
-    
+
     constexpr std::array<std::pair<std::string_view, std::string_view>, 4> paths = {{
         {"tests/workloads/bin_100.bin","tests/workloads/bin_100.txt"},
         {"tests/workloads/bin_1000.bin","tests/workloads/bin_1000.txt"},
