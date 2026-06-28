@@ -4,16 +4,25 @@
 #include <cstdint>
 #include <unordered_set>
 #include <queue>
+#include <vector>
 
 class FIFO : public ICache {
 public:
     FIFO(const CacheConfig& config);
 
     bool execute(uint32_t index, uint32_t tag) override;
+
 private:
     struct CacheSet {
-        const int capacity;
-        std::queue<int> q;
-        std::unordered_set<int> set; 
+        int capacity;
+        std::queue<uint32_t> q;
+        std::unordered_set<uint32_t> set;
+
+        CacheSet(int cap) : capacity(cap) {}
     };
+
+    std::vector<CacheSet> matrix;
+
+    int total_capacity;
+    int used_capacity;
 };
