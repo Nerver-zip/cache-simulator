@@ -60,12 +60,12 @@ int main(int argc, char* argv[]){
         cout << "--------------------------" << "\n";
 
         cout << COLOR_YELLOW << "Simulation Results:" << "\n";
-        cout << COLOR_GREEN <<"Instructions executed: " << COLOR_RESET << cache->getTotal() << "\n";
-        cout << COLOR_GREEN <<"Elapsed time: " << COLOR_RESET << elapsed << "\n";
-        cout << COLOR_GREEN <<"Number of hits: " << COLOR_RESET << cache->getHits() << "\n";
-        cout << COLOR_GREEN <<"Number of misses: " << COLOR_RESET << cache->getMisses().total << "\n";
-        cout << COLOR_GREEN <<"Number of compulsory misses: " << COLOR_RESET << cache->getMisses().compulsory << "\n";
-        cout << COLOR_GREEN <<"Number of conflict misses: " << COLOR_RESET << cache->getMisses().conflict << "\n";
+        cout << COLOR_GREEN << "Instructions executed: " << COLOR_RESET << cache->getTotal() << "\n";
+        cout << COLOR_GREEN << "Elapsed time: " << COLOR_RESET << elapsed << "\n";
+        cout << COLOR_GREEN << "Number of hits: " << COLOR_RESET << cache->getHits() << "\n";
+        cout << COLOR_GREEN << "Number of misses: " << COLOR_RESET << cache->getMisses().total << "\n";
+        cout << COLOR_GREEN << "Number of compulsory misses: " << COLOR_RESET << cache->getMisses().compulsory << "\n";
+        cout << COLOR_GREEN << "Number of conflict misses: " << COLOR_RESET << cache->getMisses().conflict << "\n";
         cout << COLOR_GREEN << "Number of capacity misses: " << COLOR_RESET << cache->getMisses().capacity << "\n";
         cout << COLOR_GREEN << "Number of replacements: " << COLOR_RESET << cache->getMisses().conflict + cache->getMisses().capacity << "\n";
         cout << COLOR_GREEN << "Hit rate: " << COLOR_RESET << cache->getHitRate() << "\n";

@@ -79,7 +79,7 @@ for file in "$TEST_DIR"/*.args; do
             "$TEST_DIR/${name}.expected" \
             "0.01"
     else
-        diff -u \
+        diff --strip-trailing-cr -u \
             "$TEST_DIR/${name}.expected" \
             "$OUTPUT_FILE"
     fi
