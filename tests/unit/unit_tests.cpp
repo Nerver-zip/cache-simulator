@@ -4,6 +4,7 @@
 #include "test_filereader.hpp"
 #include "test_lru.hpp"
 #include "test_random.hpp"
+#include "test_fifo.hpp"
 
 int main() {
     RUN_TEST(test_decoder);
@@ -11,6 +12,7 @@ int main() {
     RUN_TEST(test_filereader);
     RUN_TEST(test_lru);
     RUN_TEST(test_random);
+    RUN_TEST(test_fifo);
 
     TEST_SUMMARY(); 
 }
