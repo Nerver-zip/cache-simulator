@@ -16,7 +16,7 @@ private:
     struct CacheSet {
         int capacity;
         std::queue<uint32_t> q;
-        std::unordered_set<uint32_t> set;
+        std::unordered_set<uint32_t> tag_set;
 
         CacheSet(int cap) : capacity(cap) {}
     };

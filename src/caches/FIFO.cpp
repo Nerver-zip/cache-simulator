@@ -15,17 +15,17 @@ FIFO::FIFO(const CacheConfig& config)
 bool FIFO::execute(uint32_t index, uint32_t tag){
     auto& set = matrix[index];
 
-    if(set.set.find(tag) != set.set.end()){
+    if(set.tag_set.find(tag) != set.tag_set.end()){
         ++hits;
         return true;
     }
 
     misses.total++;
 
-    if((int)set.set.size() == set.capacity){
+    if((int)set.tag_set.size() == set.capacity){
         uint32_t old = set.q.front();
         set.q.pop();
-        set.set.erase(old);
+        set.tag_set.erase(old);
 
         if(used_capacity == total_capacity){
             ++misses.capacity;
@@ -39,7 +39,7 @@ bool FIFO::execute(uint32_t index, uint32_t tag){
     }
 
     set.q.push(tag);
-    set.set.insert(tag);
+    set.tag_set.insert(tag);
 
     return false;
 }
