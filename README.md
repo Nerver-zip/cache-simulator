@@ -1,5 +1,11 @@
 # Simulador de cache
 
+## Alunos
+
+- João Pedro Lima
+
+- Marcelo Augusto Etcheverria
+
 ## Como executar
 
 Num ambiente Linux, a partir da raíz do projeto, compile com:
@@ -36,3 +42,4 @@ Somente testes de integração
 
 ```makefile
 make test-ci
+```
