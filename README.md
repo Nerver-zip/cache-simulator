@@ -2,7 +2,7 @@
 
 ## Como executar
 
-Na raíz do projeto, compile com:
+Num ambiente Linux, a partir da raíz do projeto, compile com:
 
 ```makefile
 make

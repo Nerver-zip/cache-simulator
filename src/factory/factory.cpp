@@ -11,8 +11,5 @@ createCache(const std::string& policy, const CacheConfig& config){
     if(policy == "R")
         return std::make_unique<Random>(config);
     
-    if(policy == "LFU")
-        return std::make_unique<LFU>(config);
-
     throw std::runtime_error("Unknown policy");
 }

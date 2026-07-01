@@ -84,7 +84,7 @@ Parameters Sanitizer::sanitize(int argc, const char* const argv[]){
     }
     
     // Validação da política
-    if(std::string_view(argv[4]) != "L" && std::string_view(argv[4]) != "R" && std::string_view(argv[4]) != "F" && std::string_view(argv[4]) != "LFU")
+    if(std::string_view(argv[4]) != "L" && std::string_view(argv[4]) != "R" && std::string_view(argv[4]) != "F")
         throw std::runtime_error("Unknown policy. Check ./cache_simulator -h for help");
     
     // Validação da flag
