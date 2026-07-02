@@ -23,7 +23,7 @@ Executando:
 Exemplo:
 
 ```bash
-./cache_simulator 32 32 4 L 1 bin_1000.bin
+./cache_simulator 32 32 4 L 1 tests/workloads/bin_1000.bin
 ```
 
 Rodando todos os testes:
